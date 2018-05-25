@@ -1,5 +1,5 @@
-"use strict";
+'use strict';
 
-const { FileMakerTransport } = require("transport.model");
+const { FilemakerTransport } = require('./transport.model');
 
-module.exports = { FileMakerTransport };
+module.exports = { FilemakerTransport };

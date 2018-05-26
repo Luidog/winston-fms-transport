@@ -1,4 +1,4 @@
-# winston-fms-transport [![Build Status](https://travis-ci.org/Luidog/winston-fms-transport.png?branch=master)](https://travis-ci.org/Luidog/winston-fms-transport)
+# winston-fms-transport [![Build Status](https://travis-ci.org/Luidog/winston-fms-transport.png?branch=master)](https://travis-ci.org/Luidog/winston-fms-transport)[![Coverage Status](https://coveralls.io/repos/github/Luidog/winston-fms-transport/badge.svg?branch=master)](https://coveralls.io/github/Luidog/winston-fms-transport?branch=master)
 
 A transport to support logging via winston to FileMaker Server
 

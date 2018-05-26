@@ -1,22 +1,22 @@
 {
   "name": "winston-fms-transport",
   "version": "0.0.1",
-  "description": "A transport to support logging via winston to FileMaker Server",
+  "description":
+    "A transport to support logging via winston to FileMaker Server",
   "main": "index.js",
   "scripts": {
-    "test": "npm run tests"
+    "test": "nyc _mocha --recursive ./tests --timeout=30000",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "generate-readme":
+      "node_modules/.bin/readme package.json --tests --travis > README.md",
+    "generate-docs": "node_modules/.bin/jsdoc --configure .jsdoc.js --verbose",
+    "example": "node example.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://Luidog@github.com/Luidog/winston-fms-transport.git"
   },
-  "keywords": [
-    "winston",
-    "FileMaker",
-    "fms-api-client",
-    "marpat",
-    "logs"
-  ],
+  "keywords": ["winston", "FileMaker", "fms-api-client", "marpat", "logs"],
   "author": "Lui de la Parra",
   "license": "MIT",
   "bugs": {

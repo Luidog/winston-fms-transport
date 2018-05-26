@@ -20,7 +20,7 @@ connect('nedb://memory')
         level: level,
         infoField: 'info',
         messageField: 'message',
-        layout: 'Logs'
+        layout: process.env.LAYOUT
       });
 
     const logger = createLogger({

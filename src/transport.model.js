@@ -22,14 +22,13 @@ class FilemakerTransport extends Transport {
 
   log(info, callback) {
     let payload = {};
-    payload[this.data.messageField] = info.message;
-    payload[this.data.infoField] = Object.assign(info, {
-      message: undefined,
-      level: undefined
-    });
+    let { level, message, ...data } = info;
+
+    payload[this.data.messageField] = message;
+    payload[this.data.infoField] = data;
 
     Filemaker.findOne({ _id: this.data.fmId })
-      .then(client => this.createClient(client))
+      .then(this._createClient)
       .then(client => client.create(this.data.layout, payload))
       .then(record => callback())
       .catch(error => {
@@ -38,7 +37,7 @@ class FilemakerTransport extends Transport {
       });
   }
 
-  createClient(client) {
+  _createClient(client) {
     let newClient = Filemaker.create({
       application: this.data.application,
       server: this.data.server,

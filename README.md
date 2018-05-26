@@ -1,6 +1,6 @@
 # winston-fms-transport [![Build Status](https://travis-ci.org/Luidog/winston-fms-transport.png?branch=master)](https://travis-ci.org/Luidog/winston-fms-transport)
 
-A transport to support logging via winston to FileMaker Server.
+A transport to support logging via winston to FileMaker Server
 
 ## Installation
 
@@ -62,13 +62,23 @@ npm test
 ```
 
 ```
-> winston-fms-transport@0.0.1 test /Users/luidelaparra/Documents/Development/winston-fms-transport
+> winston-fms-transport@0.0.1 test /winston-fms-transport
 > nyc _mocha --recursive ./tests --timeout=30000
-----------|----------|----------|----------|----------|-------------------|
-File      |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
-----------|----------|----------|----------|----------|-------------------|
-All files |        0 |        0 |        0 |        0 |                   |
-----------|----------|----------|----------|----------|-------------------|
+  .log()
+    ✓ should be present
+    ✓ should return true without a callback
+    ✓ should return true with a callback
+  3 passing (25ms)
+---------------------------|----------|----------|----------|----------|-------------------|
+File                       |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
+---------------------------|----------|----------|----------|----------|-------------------|
+All files                  |    84.85 |        0 |    57.14 |    84.85 |                   |
+ winston-fms-transport     |      100 |      100 |      100 |      100 |                   |
+  index.js                 |      100 |      100 |      100 |      100 |                   |
+ winston-fms-transport/src |    83.87 |        0 |    57.14 |    83.87 |                   |
+  index.js                 |      100 |      100 |      100 |      100 |                   |
+  transport.model.js       |    82.76 |        0 |    57.14 |    82.76 |    32,33,47,50,51 |
+---------------------------|----------|----------|----------|----------|-------------------|
 ```
 
 ## Dependencies
@@ -81,7 +91,6 @@ All files |        0 |        0 |        0 |        0 |                   |
 ## Dev Dependencies
 
 * [chai](https://ghub.io/chai): BDD/TDD assertion library for node.js and the browser. Test framework agnostic.
-* [chai-as-promised](https://ghub.io/chai-as-promised): Extends Chai with assertions about promises.
 * [coveralls](https://ghub.io/coveralls): takes json-cov output into stdin and POSTs to coveralls.io
 * [dotenv](https://ghub.io/dotenv): Loads environment variables from .env file
 * [eslint](https://ghub.io/eslint): An AST-based pattern checker for JavaScript.

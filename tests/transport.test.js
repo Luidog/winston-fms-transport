@@ -27,10 +27,20 @@ describe('.log()', () => {
         return database.dropDatabase();
       })
       .then(() => {
-        instance = new FilemakerTransport({});
+        instance = new FilemakerTransport({
+          application: process.env.APPLICATION,
+          server: process.env.SERVER,
+          user: process.env.USERNAME,
+          password: process.env.PASSWORD,
+          infoField: 'info',
+          messageField: 'message',
+          layout: process.env.LAYOUT,
+          level: 'silly'
+        });
         return done();
       });
   });
+
   it('should be present', () => {
     assert.ok(instance.log);
     assert.equal('function', typeof instance.log);
@@ -41,9 +51,8 @@ describe('.log()', () => {
       level: 'debug',
       message: 'foo'
     };
-
-    info[MESSAGE] = JSON.stringify(info);
     var result = instance.log(info);
+    console.log(result);
     assert(true, result);
   });
 
@@ -56,6 +65,31 @@ describe('.log()', () => {
     info[MESSAGE] = JSON.stringify(info);
     var result = instance.log(info, () => {
       assert(true, result);
+      done();
+    });
+  });
+
+  it('should reject and log an error if there is an error', done => {
+    let info = {
+      level: 'debug',
+      message: 'foo'
+    };
+
+    let newInstance = new FilemakerTransport({
+      application: 'not a server',
+      server: process.env.SERVER,
+      user: process.env.USERNAME,
+      password: process.env.PASSWORD,
+      infoField: 'info',
+      messageField: 'message',
+      layout: process.env.LAYOUT,
+      level: 'silly'
+    });
+
+    info[MESSAGE] = JSON.stringify(info);
+    const result = newInstance.log(info, error => {
+      console.log(error)
+      assert(true, error);
       done();
     });
   });

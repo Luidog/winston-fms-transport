@@ -24,11 +24,14 @@ connect('nedb://memory')
       });
 
     const logger = createLogger({
-      transports: [filemakerTransport('silly')],
+      transports: [filemakerTransport('info')],
       exitOnError: false
     });
 
     logger.emitErrs = true;
     return logger;
   })
-  .then(logger => logger.info('Message', { db: 'this is a message' }));
+  .then(logger => {
+    logger.silly('Message', { db: 'this is a message' });
+    return logger;
+  });

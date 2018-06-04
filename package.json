@@ -1,6 +1,6 @@
 {
   "name": "winston-fms-transport",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description":
     "A transport to support logging via winston to FileMaker Server",
   "main": "index.js",

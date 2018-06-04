@@ -22,13 +22,7 @@ class FilemakerTransport extends Transport {
 
   log(info, callback) {
     let { level, message, ...data } = info;
-
-    if(callback === undefined) callback = () => true
-
-    if (
-      this.levels !== undefined &&
-      this.levels[this.level] >= this.levels[level]
-    ) {
+    if (callback === undefined) callback = () => true;
       let payload = {};
       payload[this.messageField] = message;
       payload[this.infoField] = data;
@@ -36,14 +30,8 @@ class FilemakerTransport extends Transport {
       Filemaker.findOne({ _id: this.fmId })
         .then(client => this._createClient(client))
         .then(client => client.create(this.layout, payload))
-        .then(record => callback(true))
-        .catch(error => {
-          console.log('FMS Transport Error', error);
-          callback(error);
-        });
-    } else {
-      callback();
-    }
+        .then(record => callback())
+        .catch(error => callback())
   }
 
   _createClient(client) {

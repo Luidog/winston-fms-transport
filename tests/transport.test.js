@@ -18,8 +18,8 @@ const { FilemakerTransport } = require('../index.js');
 environment.config({ path: './tests/.env' });
 varium(process.env, './tests/env.manifest');
 
-describe('.log()', () => {
-  let instance, database;
+describe('Transport Tests', () => {
+  let instance, result, database;
   beforeEach(done => {
     connect('nedb://memory')
       .then(db => {
@@ -37,11 +37,12 @@ describe('.log()', () => {
           layout: process.env.LAYOUT,
           level: 'silly'
         });
-        return done();
-      });
+        return instance;
+      })
+      .then(logger => done());
   });
 
-  it('should be present', () => {
+  it('should have a log function', () => {
     assert.ok(instance.log);
     assert.equal('function', typeof instance.log);
   });
@@ -52,7 +53,6 @@ describe('.log()', () => {
       message: 'foo'
     };
     var result = instance.log(info);
-    console.log(result);
     assert(true, result);
   });
 
@@ -87,9 +87,8 @@ describe('.log()', () => {
     });
 
     info[MESSAGE] = JSON.stringify(info);
-    const result = newInstance.log(info, error => {
-      console.log(error)
-      assert(true, error);
+    result = newInstance.log(info, error => {
+      assert(true, result);
       done();
     });
   });

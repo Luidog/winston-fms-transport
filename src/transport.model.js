@@ -23,15 +23,18 @@ class FilemakerTransport extends Transport {
   log(info, callback) {
     let { level, message, ...data } = info;
     if (callback === undefined) callback = () => true;
-      let payload = {};
-      payload[this.messageField] = message;
-      payload[this.infoField] = data;
+    let payload = {};
+    payload[this.messageField] = message;
+    payload[this.infoField] = data;
 
-      Filemaker.findOne({ _id: this.fmId })
-        .then(client => this._createClient(client))
-        .then(client => client.create(this.layout, payload))
-        .then(record => callback())
-        .catch(error => callback())
+    Filemaker.findOne({ _id: this.fmId })
+      .then(client => this._createClient(client))
+      .then(client => client.create(this.layout, payload))
+      .then(record => callback())
+      .catch(error => {
+        console.log('fms-api-client error', error);
+        callback();
+      });
   }
 
   _createClient(client) {

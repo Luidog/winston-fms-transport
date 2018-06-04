@@ -4,7 +4,7 @@
 /* eslint-disable */
 
 const assert = require('assert');
-const { expect, should } = require('chai');
+const { expect } = require('chai');
 const chai = require('chai');
 
 /* eslint-enable */

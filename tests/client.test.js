@@ -11,15 +11,12 @@ const chai = require('chai');
 
 const environment = require('dotenv');
 const varium = require('varium');
-const chaiAsPromised = require('chai-as-promised');
 const { createLogger } = require('winston');
 const { connect } = require('marpat');
 const { FilemakerTransport } = require('../index.js');
 
 environment.config({ path: './tests/.env' });
 varium(process.env, './tests/env.manifest');
-
-chai.use(chaiAsPromised);
 
 describe('Client Test', () => {
   let logger, database;

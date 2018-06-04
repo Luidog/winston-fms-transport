@@ -6,48 +6,45 @@ const { Filemaker } = require('fms-api-client');
 class FilemakerTransport extends Transport {
   constructor(opts) {
     super(opts);
-    this.data = {};
     this.client = Filemaker.create({});
-    this.data.application = opts.application;
-    this.data.server = opts.server;
-    this.data.user = opts.user;
-    this.data.password = opts.password;
-    this.data.layout = opts.layout;
-    this.data.messageField = opts.messageField;
-    this.data.infoField = opts.infoField;
-    this.data.layout = opts.layout;
-    this.data.messageField = opts.messageField;
-    this.data.infoField = opts.infoField;
+    this.application = opts.application;
+    this.server = opts.server;
+    this.level = opts.level;
+    this.user = opts.user;
+    this.password = opts.password;
+    this.layout = opts.layout;
+    this.messageField = opts.messageField;
+    this.infoField = opts.infoField;
+    this.layout = opts.layout;
+    this.messageField = opts.messageField;
+    this.infoField = opts.infoField;
   }
 
   log(info, callback) {
-    let payload = {};
     let { level, message, ...data } = info;
+    if (callback === undefined) callback = () => true;
+      let payload = {};
+      payload[this.messageField] = message;
+      payload[this.infoField] = data;
 
-    payload[this.data.messageField] = message;
-    payload[this.data.infoField] = data;
-
-    Filemaker.findOne({ _id: this.data.fmId })
-      .then(this._createClient)
-      .then(client => client.create(this.data.layout, payload))
-      .then(record => callback())
-      .catch(error => {
-        console.log('LogError', error);
-        callback();
-      });
+      Filemaker.findOne({ _id: this.fmId })
+        .then(client => this._createClient(client))
+        .then(client => client.create(this.layout, payload))
+        .then(record => callback())
+        .catch(error => callback())
   }
 
   _createClient(client) {
     let newClient = Filemaker.create({
-      application: this.data.application,
-      server: this.data.server,
-      user: this.data.user,
-      password: this.data.password
+      application: this.application,
+      server: this.server,
+      user: this.user,
+      password: this.password
     });
     return client
       ? client
       : newClient.save().then(client => {
-          this.data.fmId = client._id;
+          this.fmId = client._id;
           return client;
         });
   }

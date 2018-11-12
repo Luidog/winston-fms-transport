@@ -22,10 +22,6 @@ class FilemakerTransport extends Transport {
   log(info, callback) {
     let { level, message, ...data } = info;
     if (callback === undefined) callback = () => true;
-    if(!global.CLIENT){
-      console.log('You must call connect before logs can be written to FileMaker')
-      callback()
-    }
     let payload = {};
     payload[this.messageField] = message;
     payload[this.infoField] = data;

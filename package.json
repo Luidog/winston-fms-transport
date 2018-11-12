@@ -6,6 +6,7 @@
   "scripts": {
     "test": "nyc _mocha --recursive ./tests --timeout=30000",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "report": "nyc report --reporter=html",
     "generate-readme": "node_modules/.bin/readme package.json --tests --travis > README.md",
     "generate-docs": "node_modules/.bin/jsdoc --configure .jsdoc.js --verbose",
     "example": "node example.js"

@@ -1,22 +1,26 @@
 {
   "name": "winston-fms-transport",
-  "version": "1.0.1",
-  "description":
-    "A transport to support logging via winston to FileMaker Server",
+  "version": "1.0.2",
+  "description": "A transport to support logging via winston to FileMaker Server",
   "main": "index.js",
   "scripts": {
     "test": "nyc _mocha --recursive ./tests --timeout=30000",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "generate-readme":
-      "node_modules/.bin/readme package.json --tests --travis > README.md",
-    "generate-docs": "node_modules/.bin/jsdoc --configure .jsdoc.js --verbose",
+    "report": "nyc report --reporter=html",
+    "generate-docs": "mos",
     "example": "node example.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://Luidog@github.com/Luidog/winston-fms-transport.git"
   },
-  "keywords": ["winston", "FileMaker", "fms-api-client", "marpat", "logs"],
+  "keywords": [
+    "winston",
+    "FileMaker",
+    "fms-api-client",
+    "marpat",
+    "logs"
+  ],
   "author": "Lui de la Parra",
   "license": "MIT",
   "bugs": {
@@ -24,9 +28,14 @@
   },
   "homepage": "https://github.com/Luidog/winston-fms-transport#readme",
   "dependencies": {
-    "fms-api-client": "^1.7.1",
-    "marpat": "^1.19.0",
+    "fms-api-client": "^1.7.3",
+    "marpat": "^1.19.2",
     "winston": "^3.1.0"
+  },
+  "mos": {
+    "plugins": [
+      "execute"
+    ]
   },
   "devDependencies": {
     "chai": "^4.1.2",
@@ -36,8 +45,12 @@
     "eslint-config-google": "^0.9.1",
     "eslint-config-prettier": "^2.7.0",
     "eslint-plugin-prettier": "^2.3.1",
-    "jsdocs": "^1.0.0",
+    "jsdoc": "^3.5.5",
     "minami": "^1.2.3",
+    "mos": "^1.3.1",
+    "mos-plugin-dependencies": "^2.2.2",
+    "mos-plugin-execute": "^1.0.2",
+    "mos-plugin-license": "^1.2.2",
     "mocha": "^5.0.4",
     "mocha-lcov-reporter": "^1.3.0",
     "nyc": "^11.8.0",

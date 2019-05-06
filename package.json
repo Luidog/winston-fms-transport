@@ -8,7 +8,9 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "report": "nyc report --reporter=html",
     "generate-docs": "mos",
-    "example": "node example.js"
+    "example": "node example.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -29,7 +31,8 @@
   "homepage": "https://github.com/Luidog/winston-fms-transport#readme",
   "dependencies": {
     "fms-api-client": "^1.8.1",
-    "marpat": "^1.19.2"
+    "marpat": "^1.19.2",
+    "snyk": "^1.161.1"
   },
   "mos": {
     "plugins": [
@@ -57,5 +60,6 @@
     "varium": "^1.0.1",
     "winston": "^3.2.1",
     "winston-transport": "^4.3.0"
-  }
+  },
+  "snyk": true
 }

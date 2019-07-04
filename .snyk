@@ -1,8 +1,15 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.13.3
+version: v1.13.5
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   SNYK-JS-AXIOS-174505:
     - fms-api-client > axios:
         patched: '2019-05-06T07:59:47.506Z'
+  SNYK-JS-LODASH-450202:
+    - marpat > lodash:
+        patched: '2019-07-04T07:59:32.111Z'
+    - fms-api-client > lodash:
+        patched: '2019-07-04T07:59:32.111Z'
+    - fms-api-client > marpat > lodash:
+        patched: '2019-07-04T07:59:32.111Z'

@@ -9,30 +9,33 @@ const chai = require('chai');
 
 /* eslint-enable */
 
+const path = require('path');
 const environment = require('dotenv');
 const varium = require('varium');
 const { createLogger } = require('winston');
 const { connect } = require('marpat');
 const { FilemakerTransport } = require('../index.js');
 
-environment.config({ path: './tests/.env' });
-varium(process.env, './tests/env.manifest');
+const manifestPath = path.join(__dirname, './env.manifest');
 
-describe('Log Test', () => {
-  let logger, database, filemakerTransport;
+describe('Client Test', () => {
+  let logger;
+  let database;
   before(done => {
+    environment.config({ path: './tests/.env' });
+    varium({ manifestPath });
     connect('nedb://memory')
       .then(db => {
         database = db;
         return database.dropDatabase();
       })
       .then(() => {
-        filemakerTransport = level =>
+        const filemakerTransport = level =>
           new FilemakerTransport({
-            application: process.env.APPLICATION,
+            database: process.env.DATABASE,
             server: process.env.SERVER,
             user: process.env.USERNAME,
-            password: process.env.PASSWORD,
+            password: 'incorrect-password',
             infoField: 'info',
             messageField: 'message',
             layout: process.env.LAYOUT,
@@ -40,7 +43,7 @@ describe('Log Test', () => {
           });
 
         logger = createLogger({
-          transports: [filemakerTransport('info')],
+          transports: [filemakerTransport('silly')],
           exitOnError: false
         });
 
@@ -51,13 +54,13 @@ describe('Log Test', () => {
       .then(logger => done());
   });
 
-  it('should be able send a log to FileMaker', () => {
+  it('should reject if it can not send a message', () => {
     expect(logger.info('test message', { data: 'data' }))
       .to.be.an('object')
       .with.any.keys('level');
   });
 
-  it('should be able send multiple messages on the same client', () => {
+  it('should reuse the same client to try and send a message', () => {
     expect(logger.info('test message', { data: 'data' }))
       .to.be.an('object')
       .with.any.keys('level');

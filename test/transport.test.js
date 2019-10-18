@@ -9,18 +9,22 @@ const chai = require('chai');
 
 /* eslint-enable */
 
+const path = require('path');
 const environment = require('dotenv');
 const varium = require('varium');
 const MESSAGE = Symbol.for('message');
 const { connect } = require('marpat');
 const { FilemakerTransport } = require('../index.js');
 
-environment.config({ path: './tests/.env' });
-varium(process.env, './tests/env.manifest');
+const manifestPath = path.join(__dirname, './env.manifest');
 
 describe('Transport Tests', () => {
-  let instance, result, database;
+  let instance;
+  let result;
+  let database;
   beforeEach(done => {
+    environment.config({ path: './tests/.env' });
+    varium({ manifestPath });
     connect('nedb://memory')
       .then(db => {
         database = db;
@@ -28,7 +32,7 @@ describe('Transport Tests', () => {
       })
       .then(() => {
         instance = new FilemakerTransport({
-          application: process.env.APPLICATION,
+          database: process.env.DATABASE,
           server: process.env.SERVER,
           user: process.env.USERNAME,
           password: process.env.PASSWORD,
@@ -76,7 +80,7 @@ describe('Transport Tests', () => {
     };
 
     let newInstance = new FilemakerTransport({
-      application: 'not a server',
+      database: 'not a server',
       server: process.env.SERVER,
       user: process.env.USERNAME,
       password: process.env.PASSWORD,

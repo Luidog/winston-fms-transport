@@ -1,13 +1,17 @@
 'use strict';
 
+const path = require('path');
 const { connect } = require('marpat');
 const { createLogger } = require('winston');
 const environment = require('dotenv');
 const varium = require('varium');
 const { FilemakerTransport } = require('./index.js');
 
+const manifestPath = path.join(__dirname, './test/env.manifest');
+
 environment.config({ path: './tests/.env' });
-varium(process.env, './tests/env.manifest');
+varium({ manifestPath });
+
 //#connect-to-datastore
 connect('nedb://memory')
   .then(db => {
@@ -15,11 +19,9 @@ connect('nedb://memory')
     //#create-filemaker-transport
     const filemakerTransport = level =>
       new FilemakerTransport({
-        application: process.env.APPLICATION,
-        server: process.env.SERVER,
+        database: process.env.DATABASE,
         user: process.env.USERNAME,
         password: process.env.PASSWORD,
-        level: level,
         infoField: 'info',
         messageField: 'message',
         layout: process.env.LAYOUT
@@ -27,12 +29,11 @@ connect('nedb://memory')
     //#
     //#add-logger-transport
     const logger = createLogger({
-      transports: [filemakerTransport('info')],
+      transports: [filemakerTransport()],
       exitOnError: false
     });
     //#
     return logger;
-
   })
   .then(logger => {
     //#use-logger-transport

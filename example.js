@@ -9,7 +9,7 @@ const { FilemakerTransport } = require('./index.js');
 
 const manifestPath = path.join(__dirname, './test/env.manifest');
 
-environment.config({ path: './tests/.env' });
+environment.config({ path: './test/.env' });
 varium({ manifestPath });
 
 //#connect-to-datastore
@@ -20,16 +20,18 @@ connect('nedb://memory')
     const filemakerTransport = level =>
       new FilemakerTransport({
         database: process.env.DATABASE,
+        server: process.env.SERVER,
         user: process.env.USERNAME,
         password: process.env.PASSWORD,
         infoField: 'info',
         messageField: 'message',
-        layout: process.env.LAYOUT
+        layout: process.env.LAYOUT,
+        level
       });
     //#
     //#add-logger-transport
     const logger = createLogger({
-      transports: [filemakerTransport()],
+      transports: [filemakerTransport('silly')],
       exitOnError: false
     });
     //#

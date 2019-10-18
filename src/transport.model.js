@@ -67,7 +67,7 @@ class FilemakerTransport extends Transport {
       .then(client => client.create(this.layout, payload))
       .then(record => callback())
       .catch(({ message }) => {
-        console.log('FileMaker Transport Error', message);
+        console.log('FileMaker Transport Error:', message);
         callback();
       });
   }
@@ -77,17 +77,21 @@ class FilemakerTransport extends Transport {
    * @return {Class}        Either the original client or a newly created client.
    */
   create(client) {
-    return client
-      ? client
-      : Filemaker.create({
-          database: this.database,
-          server: this.server,
-          user: this.user,
-          password: this.password
-        }).then(client => {
-          this._id = client._id;
-          return client;
-        });
+    const instance =
+      client !== null
+        ? client
+        : Filemaker.create({
+            database: this.database,
+            server: this.server,
+            user: this.user,
+            password: this.password
+          })
+            .save()
+            .then(client => {
+              this._id = client._id;
+              return client;
+            });
+    return instance;
   }
 }
 

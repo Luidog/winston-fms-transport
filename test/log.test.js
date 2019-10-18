@@ -23,7 +23,7 @@ describe('Log Test', () => {
   let database;
   let filemakerTransport;
   before(done => {
-    environment.config({ path: './tests/.env' });
+    environment.config({ path: './test/.env' });
     varium({ manifestPath });
     connect('nedb://memory')
       .then(db => {
@@ -33,7 +33,7 @@ describe('Log Test', () => {
       .then(() => {
         filemakerTransport = level =>
           new FilemakerTransport({
-            application: process.env.APPLICATION,
+            database: process.env.DATABASE,
             server: process.env.SERVER,
             user: process.env.USERNAME,
             password: process.env.PASSWORD,

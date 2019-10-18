@@ -20,7 +20,7 @@ describe('Agent Tests', () => {
   let instance;
 
   before(() => {
-    environment.config({ path: './tests/.env' });
+    environment.config({ path: './test/.env' });
     varium({ manifestPath });
   });
 

@@ -22,7 +22,7 @@ describe('Client Test', () => {
   let logger;
   let database;
   before(done => {
-    environment.config({ path: './tests/.env' });
+    environment.config({ path: './test/.env' });
     varium({ manifestPath });
     connect('nedb://memory')
       .then(db => {

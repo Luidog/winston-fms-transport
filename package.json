@@ -4,7 +4,7 @@
   "description": "A transport to support logging via winston to FileMaker Server",
   "main": "index.js",
   "scripts": {
-    "test": "nyc _mocha --recursive ./tests --timeout=30000",
+    "test": "snyk test && nyc _mocha --recursive ./test --timeout=30000",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "report": "nyc report --reporter=html",
     "generate-docs": "mos",
@@ -30,9 +30,9 @@
   },
   "homepage": "https://github.com/Luidog/winston-fms-transport#readme",
   "dependencies": {
-    "fms-api-client": "^1.8.1",
-    "marpat": "^1.19.2",
-    "snyk": "^1.161.1"
+    "fms-api-client": "^2.2.4",
+    "marpat": "^2.1.2",
+    "snyk": "^1.236.0"
   },
   "mos": {
     "plugins": [
@@ -41,23 +41,23 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "coveralls": "^3.0.2",
-    "dotenv": "^6.2.0",
-    "eslint": "^5.14.1",
-    "eslint-config-google": "^0.12.0",
-    "eslint-config-prettier": "^4.0.0",
-    "eslint-plugin-prettier": "^3.0.1",
-    "jsdoc": "^3.5.5",
+    "coveralls": "^3.0.7",
+    "dotenv": "^8.2.0",
+    "eslint": "^6.5.1",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "jsdoc": "^3.6.3",
     "minami": "^1.2.3",
-    "mocha": "^6.0.0",
+    "mocha": "^6.2.1",
     "mocha-lcov-reporter": "^1.3.0",
     "mos": "^1.3.1",
     "mos-plugin-dependencies": "^2.2.2",
     "mos-plugin-execute": "^1.0.2",
     "mos-plugin-license": "^1.2.2",
-    "nyc": "^13.3.0",
-    "prettier": "^1.16.4",
-    "varium": "^1.0.1",
+    "nyc": "^14.1.1",
+    "prettier": "^1.18.2",
+    "varium": "^2.0.6",
     "winston": "^3.2.1",
     "winston-transport": "^4.3.0"
   },

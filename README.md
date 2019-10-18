@@ -2,7 +2,7 @@
 # winston-fms-transport
 <!--/@-->
 
-[![Build Status](https://travis-ci.org/Luidog/winston-fms-transport.png?branch=master)](https://travis-ci.org/Luidog/winston-fms-transport)[![Coverage Status](https://coveralls.io/repos/github/Luidog/winston-fms-transport/badge.svg?branch=master)](https://coveralls.io/github/Luidog/winston-fms-transport?branch=master)[![Known Vulnerabilities](https://snyk.io/test/github/Luidog/winston-fms-transport/badge.svg?targetFile=package.json)](https://snyk.io/test/github/Luidog/winston-fms-transport?targetFile=package.json)[![GitHub issues](https://img.shields.io/github/issues/Luidog/winston-fms-transport.svg?style=plastic)](https://github.com/Luidog/winston-fms-transport/issues) [![Github commits (since latest release)](https://img.shields.io/github/commits-since/luidog/winston-fms-transport/latest.svg)](https://img.shields.io/github/issues/Luidog/winston-fms-transport.svg)  [![GitHub license](https://img.shields.io/github/license/Luidog/winston-fms-transport.svg)](https://github.com/Luidog/winston-fms-transport/blob/master/LICENSE.md)
+[![Build Status](https://travis-ci.org/Luidog/winston-fms-transport.png?branch=master)](https://travis-ci.org/Luidog/winston-fms-transport)[![Coverage Status](https://coveralls.io/repos/github/Luidog/winston-fms-transport/badge.svg?branch=master)](https://coveralls.io/github/Luidog/winston-fms-transport?branch=master)[![Known Vulnerabilities](https://snyk.io/test/github/Luidog/winston-fms-transport/badge.svg?targetFile=package.json)](https://snyk.io/test/github/Luidog/winston-fms-transport?targetFile=package.json)[![GitHub issues](https://img.shields.io/github/issues/Luidog/winston-fms-transport.svg?style=plastic)](https://github.com/Luidog/winston-fms-transport/issues) [![Github commits (since latest release)](https://img.shields.io/github/commits-since/luidog/winston-fms-transport/latest.svg)](https://img.shields.io/github/issues/Luidog/winston-fms-transport.svg) [![GitHub license](https://img.shields.io/github/license/Luidog/winston-fms-transport.svg)](https://github.com/Luidog/winston-fms-transport/blob/master/LICENSE.md)
 
 A transport to support logging via winston to FileMaker Server
 
@@ -27,21 +27,20 @@ connect('nedb://memory')
 > Excerpt from [./example.js](./example.js#L12-L13)
 <!--/@-->
 
-A transport is defined with the following properties. Note the `infoField`, `messageField`, and `layout` properties. The layout property specifices the layout to use in Filemaker when creating log records. The `infoField` will be used for the log data and the `messageField` will be used for the log message. All other properties conform the the properties required by the [fms-api-client](https://github.com/Luidog/fms-api-client). 
+A transport is defined with the following properties. Note the `infoField`, `messageField`, and `layout` properties. The layout property specifices the layout to use in Filemaker when creating log records. The `infoField` will be used for the log data and the `messageField` will be used for the log message. All other properties conform the the properties required by the [fms-api-client](https://github.com/Luidog/fms-api-client).
 
 <!--@snippet('./example.js#create-filemaker-transport', { showSource: true })-->
 ```js
-    const filemakerTransport = level =>
-      new FilemakerTransport({
-        application: process.env.APPLICATION,
-        server: process.env.SERVER,
-        user: process.env.USERNAME,
-        password: process.env.PASSWORD,
-        level: level,
-        infoField: 'info',
-        messageField: 'message',
-        layout: process.env.LAYOUT
-      });
+const filemakerTransport = level =>
+  new FilemakerTransport({
+    database: process.env.DATABASE,
+    server: process.env.SERVER,
+    user: process.env.USERNAME,
+    password: process.env.PASSWORD,
+    infoField: 'info',
+    messageField: 'message',
+    layout: process.env.LAYOUT
+  });
 ```
 
 > Excerpt from [./example.js](./example.js#L16-L26)
@@ -51,10 +50,10 @@ Once a transport is created it can be added to a logger instance like any other 
 
 <!--@snippet('./example.js#add-logger-transport', { showSource: true })-->
 ```js
-    const logger = createLogger({
-      transports: [filemakerTransport('info')],
-      exitOnError: false
-    });
+const logger = createLogger({
+  transports: [filemakerTransport()],
+  exitOnError: false
+});
 ```
 
 > Excerpt from [./example.js](./example.js#L29-L32)
@@ -64,7 +63,7 @@ Once defined, the logger can be called from within the node application and logs
 
 <!--@snippet('./example.js#use-logger-transport', { showSource: true })-->
 ```js
-    logger.silly('Message', { db: 'this is a message' });
+logger.silly('Message', { db: 'this is a message' });
 ```
 
 > Excerpt from [./example.js](./example.js#L39-L39)

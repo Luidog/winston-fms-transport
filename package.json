@@ -32,7 +32,7 @@
   "dependencies": {
     "fms-api-client": "^1.8.1",
     "marpat": "^1.19.2",
-    "snyk": "^1.161.1"
+    "snyk": "^1.316.1"
   },
   "mos": {
     "plugins": [

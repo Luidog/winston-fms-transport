@@ -30,8 +30,8 @@
   },
   "homepage": "https://github.com/Luidog/winston-fms-transport#readme",
   "dependencies": {
-    "fms-api-client": "^1.8.1",
-    "marpat": "^1.19.2",
+    "fms-api-client": "^2.2.2",
+    "marpat": "^2.1.0",
     "snyk": "^1.161.1"
   },
   "mos": {
